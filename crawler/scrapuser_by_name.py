@@ -93,6 +93,10 @@ def get_screen_name_from_search(query, page=1):
         if i < 3:
             result.append(screen_name)
 
+    if not result:
+        logging.error("'{}' not found".format(query))
+        return [""]
+
     return result
 
 
@@ -110,7 +114,7 @@ if __name__ == '__main__':
     for line in content:
         name = line.strip()
         temp_screen_name = get_screen_name_from_search(query=name)
-        screen_names.append(temp_screen_name)
+        screen_names = screen_names + temp_screen_name
 
     for x in screen_names:
         print(x)
