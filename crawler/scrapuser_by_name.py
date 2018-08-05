@@ -39,6 +39,7 @@ def get_all_tweets(screen_name):
     alltweets.extend(new_tweets)
 
     # save the id of the oldest tweet less one
+    print('INFO:Scrapping user ' + screen_name)
     oldest = alltweets[-1].id - 1
 
     # oldest = 826569136390144000 - 1
@@ -52,12 +53,7 @@ def get_all_tweets(screen_name):
         # update the id of the oldest tweet less one
         print('INFO:Scrapping user ' + screen_name)
         print("INFO:%s tweets downloaded so far" % (len(alltweets)))
-
-        try:
-            oldest = alltweets[-1].id - 1
-        except Exception as e:
-            logging.error(e)
-            break
+        oldest = alltweets[-1].id - 1
 
         # all subsiquent requests use the max_id param to prevent duplicates
         new_tweets = api.user_timeline(
@@ -127,7 +123,7 @@ if __name__ == '__main__':
         writer.writerow(["tweet_id", "created_at", "text", "screen_name"])
 
         for name in screen_names:
-            if not name:
+            if name == "":
                 continue
 
             outtweets = get_all_tweets(name)
