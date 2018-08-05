@@ -38,6 +38,9 @@ def get_all_tweets(screen_name):
     # save most recent Tweets
     alltweets.extend(new_tweets)
 
+    if len(new_tweets) == 0:
+        return [["", "", "", screen_name]]
+
     # save the id of the oldest tweet less one
     print('INFO:Scrapping user ' + screen_name)
     oldest = alltweets[-1].id - 1
