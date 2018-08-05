@@ -77,21 +77,21 @@ def search_users(query, page=1):
     users = api.search_users(query, per_page=20, page=page)
     return users
 
-def get_user_id_from_search(query, page=1):
+def get_screen_name_from_search(query, page=1):
 
-    users = search_users(query, page):
+    users = search_users(query, page)
     result = []
 
     for i in range(0, len(users)):
         user = users[i]._json
-        user_id = user["id"]
+        screen_name = user["screen_name"]
         verified = bool(user["verified"])
 
         if verified:
-            return [user_id]
+            return [screen_name]
 
         if i < 3:
-            result.append(user_id)
+            result.append(screen_name)
 
     return result
 
@@ -101,20 +101,22 @@ if __name__ == '__main__':
     # get_all_tweets("temanahok")
     # get_all_tweets("Panji Muhammad")
 
+    screen_names = []
+
     current_path = os.path.abspath(os.path.dirname(__file__))
     dataset_path = "/../dataset/kenya_influencer.csv"
     f = open(current_path + dataset_path)
     content = f.readlines()
     for line in content:
         name = line.strip()
-        print("Scrapping user " + name)
+        temp_screen_name = get_screen_name_from_search(query=name)
+        screen_names.append(temp_screen_name)
 
-
-        get_all_tweets(screen_name)
-
-    users = search_users("Robert Alai")
-    for user in users:
-        user_dict = user._json
-        name = user_dict["name"]
-        screen_name = user_dict["screen_name"]
-        print("name     : {}\nusername : {}\n".format(name, screen_name))
+    for x in screen_names:
+        print(x)
+    # users = search_users("Robert Alai")
+    # for user in users:
+    #     user_dict = user._json
+    #     name = user_dict["name"]
+    #     screen_name = user_dict["screen_name"]
+    #     print("name     : {}\nusername : {}\n".format(name, screen_name))
