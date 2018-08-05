@@ -71,8 +71,6 @@ def get_all_tweets(screen_name):
         writer.writerow(["id", "created_at", "text"])
         writer.writerows(outtweets)
 
-    pass
-
 
 if __name__ == '__main__':
     # pass in the username of the account you want to download
