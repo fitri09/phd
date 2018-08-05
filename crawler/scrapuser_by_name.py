@@ -6,6 +6,7 @@ import tweepy   # https://github.com/tweepy/tweepy
 import csv
 import os
 import logging
+import json
 from dotenv import load_dotenv
 
 # Load env variable
@@ -72,16 +73,27 @@ def get_all_tweets(screen_name):
         writer.writerows(outtweets)
 
 
+def search_users(query, page=1):
+    users = api.search_users(query, per_page=20, page=page)
+    return users
+
 if __name__ == '__main__':
     # pass in the username of the account you want to download
-    get_all_tweets("temanahok")
+    # get_all_tweets("temanahok")
     # get_all_tweets("Panji Muhammad")
 
-    current_path = os.path.abspath(os.path.dirname(__file__))
-    dataset_path = "/../dataset/kenya_influencer.csv"
-    f = open(current_path + dataset_path)
-    content = f.readlines()
-    for line in content:
-        screen_name = line.strip()
-        print("Scrapping user " + screen_name)
-        get_all_tweets(screen_name)
+    # current_path = os.path.abspath(os.path.dirname(__file__))
+    # dataset_path = "/../dataset/kenya_influencer.csv"
+    # f = open(current_path + dataset_path)
+    # content = f.readlines()
+    # for line in content:
+    #     screen_name = line.strip()
+    #     print("Scrapping user " + screen_name)
+    #     get_all_tweets(screen_name)
+
+    users = search_users("Robert Alai")
+    for user in users:
+        user_dict = user._json
+        name = user_dict["name"]
+        screen_name = user_dict["screen_name"]
+        print("name     : {}\nusername : {}\n".format(name, screen_name))
