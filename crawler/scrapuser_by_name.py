@@ -39,6 +39,7 @@ def get_all_tweets(screen_name):
 
     # save the id of the oldest tweet less one
     oldest = alltweets[-1].id - 1
+
     # oldest = 826569136390144000 - 1
     # keep grabbing tweets until there are no tweets left to grab
     while len(new_tweets) > 0:
@@ -65,7 +66,7 @@ def get_all_tweets(screen_name):
     ]
 
     # write the csv
-    with open('%s_tweets.csv' % screen_name, 'wb') as f:
+    with open('%s_tweets.csv' % screen_name, 'w') as f:
         writer = csv.writer(f)
         writer.writerow(["id", "created_at", "text"])
         writer.writerows(outtweets)
