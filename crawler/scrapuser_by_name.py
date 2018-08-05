@@ -5,6 +5,7 @@
 import tweepy   # https://github.com/tweepy/tweepy
 import csv
 import os
+import logging
 from dotenv import load_dotenv
 
 # Load env variable
@@ -83,5 +84,5 @@ if __name__ == '__main__':
     content = f.readlines()
     for line in content:
         screen_name = line.strip()
-        print(screen_name)
+        print("Scrapping user " + screen_name)
         get_all_tweets(screen_name)
