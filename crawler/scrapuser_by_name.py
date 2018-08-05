@@ -61,16 +61,16 @@ def get_all_tweets(screen_name):
         print("...%s tweets downloaded so far" % (len(alltweets)))
 
     # transform the tweepy tweets into a 2D array that will populate the csv
-    outtweets = [
-        [tweet.id_str, tweet.created_at, tweet.text.encode("utf-8")]
+    outtweets = [[
+            tweet.id_str,
+            tweet.created_at,
+            tweet.text.encode("utf-8"),
+            tweet.user.screen_name
+        ]
         for tweet in alltweets
     ]
 
-    # write the csv
-    with open('crawler-result/%s_tweets.csv' % screen_name, 'w') as f:
-        writer = csv.writer(f)
-        writer.writerow(["id", "created_at", "text"])
-        writer.writerows(outtweets)
+    return outtweets
 
 
 def search_users(query, page=1):
@@ -116,8 +116,15 @@ if __name__ == '__main__':
         temp_screen_name = get_screen_name_from_search(query=name)
         screen_names = screen_names + temp_screen_name
 
-    for x in screen_names:
-        print(x)
+    with open('crawler-result/kenya_influencer_tweets.csv', 'w') as f:
+        writer = csv.writer(f)
+        writer.writerow(["tweet_id", "created_at", "text", "screen_name"])
+
+        for name in screen_names:
+            outtweets = get_all_tweets(name)
+            writer.writerows(outtweets)
+
+
     # users = search_users("Robert Alai")
     # for user in users:
     #     user_dict = user._json
