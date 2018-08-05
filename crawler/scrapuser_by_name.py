@@ -77,19 +77,40 @@ def search_users(query, page=1):
     users = api.search_users(query, per_page=20, page=page)
     return users
 
+def get_user_id_from_search(query, page=1):
+
+    users = search_users(query, page):
+    result = []
+
+    for i in range(0, len(users)):
+        user = users[i]._json
+        user_id = user["id"]
+        verified = bool(user["verified"])
+
+        if verified:
+            return [user_id]
+
+        if i < 3:
+            result.append(user_id)
+
+    return result
+
+
 if __name__ == '__main__':
     # pass in the username of the account you want to download
     # get_all_tweets("temanahok")
     # get_all_tweets("Panji Muhammad")
 
-    # current_path = os.path.abspath(os.path.dirname(__file__))
-    # dataset_path = "/../dataset/kenya_influencer.csv"
-    # f = open(current_path + dataset_path)
-    # content = f.readlines()
-    # for line in content:
-    #     screen_name = line.strip()
-    #     print("Scrapping user " + screen_name)
-    #     get_all_tweets(screen_name)
+    current_path = os.path.abspath(os.path.dirname(__file__))
+    dataset_path = "/../dataset/kenya_influencer.csv"
+    f = open(current_path + dataset_path)
+    content = f.readlines()
+    for line in content:
+        name = line.strip()
+        print("Scrapping user " + name)
+
+
+        get_all_tweets(screen_name)
 
     users = search_users("Robert Alai")
     for user in users:
