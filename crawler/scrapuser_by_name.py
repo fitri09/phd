@@ -127,10 +127,3 @@ if __name__ == '__main__':
 
             outtweets = get_all_tweets(name)
             writer.writerows(outtweets)
-
-    # users = search_users("Robert Alai")
-    # for user in users:
-    #     user_dict = user._json
-    #     name = user_dict["name"]
-    #     screen_name = user_dict["screen_name"]
-    #     print("name     : {}\nusername : {}\n".format(name, screen_name))
