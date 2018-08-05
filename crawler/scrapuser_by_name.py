@@ -77,6 +77,7 @@ def search_users(query, page=1):
     users = api.search_users(query, per_page=20, page=page)
     return users
 
+
 def get_screen_name_from_search(query, page=1):
 
     users = search_users(query, page)
@@ -116,14 +117,16 @@ if __name__ == '__main__':
         temp_screen_name = get_screen_name_from_search(query=name)
         screen_names = screen_names + temp_screen_name
 
-    with open('crawler-result/kenya_influencer_tweets.csv', 'w') as f:
+    with open('crawler-result/kenya_influencer_tweets.csv', 'a') as f:
         writer = csv.writer(f)
         writer.writerow(["tweet_id", "created_at", "text", "screen_name"])
 
         for name in screen_names:
+            if not name:
+                continue
+
             outtweets = get_all_tweets(name)
             writer.writerows(outtweets)
-
 
     # users = search_users("Robert Alai")
     # for user in users:
