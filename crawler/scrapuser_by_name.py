@@ -18,16 +18,15 @@ consumer_secret = os.getenv("TWITTER_CONSUMER_SECRET")
 access_key = os.getenv("TWITTER_ACCESS_KEY")
 access_secret = os.getenv("TWITTER_ACCESS_SECRET")
 
+# authorize twitter, initialize tweepy
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_key, access_secret)
+api = tweepy.API(auth)
+
 
 def get_all_tweets(screen_name):
     # Twitter only allows access to a users
     # most recent 3240 tweets with this method
-
-    # authorize twitter, initialize tweepy
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_key, access_secret)
-    api = tweepy.API(auth)
-
     # initialize a list to hold all the tweepy Tweets
     alltweets = []
 
