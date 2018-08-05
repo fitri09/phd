@@ -67,7 +67,7 @@ def get_all_tweets(screen_name):
     ]
 
     # write the csv
-    with open('%s_tweets.csv' % screen_name, 'w') as f:
+    with open('crawler-result/%s_tweets.csv' % screen_name, 'w') as f:
         writer = csv.writer(f)
         writer.writerow(["id", "created_at", "text"])
         writer.writerows(outtweets)
@@ -75,8 +75,8 @@ def get_all_tweets(screen_name):
 
 if __name__ == '__main__':
     # pass in the username of the account you want to download
-    # get_all_tweets("temanahok")
-    # get_all_tweets("MuhammadPanjiSx")
+    get_all_tweets("temanahok")
+    # get_all_tweets("Panji Muhammad")
 
     current_path = os.path.abspath(os.path.dirname(__file__))
     dataset_path = "/../dataset/kenya_influencer.csv"
